@@ -1,3 +1,15 @@
+@define-mixin icon-button $color {
+  &:hover, &:active {
+    color: $color;
+    border-color: $color;
+    background: color($color alpha(-90%));
+  }
+
+  &:active {
+    background: color($color alpha(-75%));
+  }
+}
+
 .footer {
   text-align: center;
 }
@@ -20,28 +32,27 @@
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  border: 1px solid #333;
+  border: 1px solid #888;
+  color: #888;
   font-size: 20px;
   width: 32px;
   height: 32px;
+
+  transition: all 0.4s;
 }
 
 .github {
-  color: #323234;
-  border-color: #323234;
+  @mixin icon-button #323234;
 }
 
 .twitter {
-  color: #00aced;
-  border-color: #00aced;
+  @mixin icon-button #00aced;
 }
 
 .googlePlus {
-  color: #dc4e41;
-  border-color: #dc4e41;
+  @mixin icon-button #dc4e41;
 }
 
 .email {
-  color: #fbbd08;
-  border-color: #fbbd08;
+  @mixin icon-button #fbbd08;
 }

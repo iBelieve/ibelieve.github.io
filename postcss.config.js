@@ -1,5 +1,8 @@
 module.exports = (config) => [
   require('stylelint')(),
+  require('postcss-mixins'),
+  require('postcss-simple-vars'),
+  require('postcss-nested'),
   require('postcss-cssnext')({
     browsers: 'last 2 versions',
     features: {
