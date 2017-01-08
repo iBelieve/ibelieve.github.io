@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'phenomic'
 import Svg from 'react-svg-inline'
+import cx from 'classnames'
 
 import twitterSvg from '../icons/iconmonstr-twitter-1.svg'
 import gitHubSvg from '../icons/iconmonstr-github-1.svg'
@@ -8,35 +9,28 @@ import gitHubSvg from '../icons/iconmonstr-github-1.svg'
 import styles from './index.css'
 
 const Header = (props, { metadata: { pkg } }) => (
-  <header className={ styles.header }>
-    <nav className={ styles.nav }>
-      <div className={ styles.navPart1 }>
-        <Link
-          className={ styles.link }
-          to={ '/' }
-        >
-          { 'Home' }
-        </Link>
+  <header className={styles.header}>
+    <nav className={styles.nav}>
+      <div className={styles.navLeft}>
+        <Link className={styles.link} activeClassName={styles.linkActive} to="/about">About</Link>
       </div>
-      <div className={ styles.navPart2 }>
+      <div>
+        <Link className={cx(styles.link, styles.title)} activeClassName={styles.linkActive}
+              to="/">{'<iBelieve/>'}</Link>
+      </div>
+      <div className={styles.navRight}>
         {
           pkg.twitter &&
-          <a
-            href={ `https://twitter.com/${pkg.twitter}` }
-            className={ styles.link }
-          >
-            <Svg svg={ twitterSvg } cleanup />
-            { 'Twitter' }
+          <a className={styles.link} href={`https://twitter.com/${pkg.twitter}`} target="_blank">
+            <Svg svg={twitterSvg} cleanup />
+            Twitter
           </a>
         }
         {
-          pkg.repository &&
-          <a
-            href={ pkg.repository }
-            className={ styles.link }
-          >
-            <Svg svg={ gitHubSvg } cleanup />
-            { 'GitHub' }
+          pkg.github &&
+          <a className={styles.link} href={`https://github.com/${pkg.github}`} target="_blank">
+            <Svg svg={gitHubSvg} cleanup />
+            GitHub
           </a>
         }
       </div>

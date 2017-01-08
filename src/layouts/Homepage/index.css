@@ -1,0 +1,21 @@
+.bio {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.bio img {
+  border-radius: 100%;
+  width: 160px;
+  height: 160px;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.bio h1 {
+  font-family: "Pacifico";
+}
+
+.bio h2 {
+  color: rgba(0,0,0,0.54);
+  font-weight: 300;
+  font-size: 21px;
+}

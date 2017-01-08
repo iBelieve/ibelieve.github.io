@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react'
 
 import styles from './index.css'
 
-const Content = (props) => (
-  <div className={ styles.content }>
-    { props.children }
+const Content = ({ children, ...props }) => (
+  <div className={styles.content} {...props}>
+    {children}
   </div>
 )
 
 Content.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }
 
 export default Content

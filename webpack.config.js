@@ -148,23 +148,21 @@ export default (config = {}) => {
         // ! \\ If you want global CSS for node_modules only, just uncomment
         // this section and the `include` part
         // // webpack 1
-        /*
         {
           test: /\.css$/,
           // depending on your need, you might need to scope node_modules
           // for global CSS if you want to keep CSS Modules by default
           // for your own CSS. If so, uncomment the line below
-          // include: path.resolve(__dirname, "node_modules"),
+          include: path.resolve(__dirname, 'node_modules'),
           loader: ExtractTextPlugin.extract(
-            "style-loader",
+            'style-loader',
             [
-              "css-loader",
-              "postcss-loader",
-            ].join("!")
+              'css-loader',
+              'postcss-loader',
+            ].join('!')
           ),
         },
-        */
-        // // webpack 2
+        // webpack 2
         /*
         {
           test: /\.css$/,
@@ -195,9 +193,16 @@ export default (config = {}) => {
         // LESS: npm install --save-dev less less-loader
         // https://github.com/webpack/less-loader
 
-        // copy assets and return generated path in js
+        // svg as raw string to be inlined
         {
-          test: /\.(html|ico|jpe?g|png|gif|eot|otf|webp|ttf|woff|woff2)$/,
+          test: /\.svg(\?v=.+)?$/,
+          loader: 'raw-loader',
+          include: path.resolve(__dirname, 'src')
+        },
+
+        {
+          test: /\.svg(\?v=.+)?$/,
+          include: path.resolve(__dirname, 'node_modules'),
           loader: 'file-loader',
           query: {
             name: '[path][name].[hash].[ext]',
@@ -205,10 +210,14 @@ export default (config = {}) => {
           },
         },
 
-        // svg as raw string to be inlined
+        // copy assets and return generated path in js
         {
-          test: /\.svg$/,
-          loader: 'raw-loader',
+          test: /\.(html|ico|jpe?g|png|gif|eot|otf|webp|ttf|woff|woff2)(\?v=.+)?$/,
+          loader: 'file-loader',
+          query: {
+            name: '[path][name].[hash].[ext]',
+            context: path.join(__dirname, config.source),
+          },
         },
       ],
     },
