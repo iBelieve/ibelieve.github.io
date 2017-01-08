@@ -1,7 +1,7 @@
-import React, { PropTypes } from "react"
-import cx from "classnames"
+import React, { PropTypes } from 'react'
+import cx from 'classnames'
 
-import styles from "./index.css"
+import styles from './index.css'
 
 const Button = ({ className, secondary, light, big, ...otherProps }) => (
   <span
@@ -25,6 +25,6 @@ Button.propTypes = {
   big: PropTypes.bool,
 }
 
-Button.displayName = "Button"
+Button.displayName = 'Button'
 
 export default Button

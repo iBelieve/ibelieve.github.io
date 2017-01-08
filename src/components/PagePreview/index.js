@@ -1,9 +1,9 @@
-import React, { PropTypes } from "react"
-import { Link } from "phenomic"
+import React, { PropTypes } from 'react'
+import { Link } from 'phenomic'
 
-import Button from "../../components/Button"
+import Button from '../../components/Button'
 
-import styles from "./index.css"
+import styles from './index.css'
 
 const PagePreview = ({ __url, title, date, description }) => {
   const pageDate = date ? new Date(date) : null
@@ -23,10 +23,10 @@ const PagePreview = ({ __url, title, date, description }) => {
       </div>
       <div className={ styles.description }>
         { description }
-        { " " }
+        { ' ' }
       </div>
       <Link to={ __url } className={ styles.readMore }>
-        <Button secondary>{ "Read More →" }</Button>
+        <Button secondary>{ 'Read More →' }</Button>
       </Link>
     </div>
   )

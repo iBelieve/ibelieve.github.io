@@ -1,21 +1,21 @@
-import path from "path"
+import path from 'path'
 
-import webpack from "webpack"
-import ExtractTextPlugin from "extract-text-webpack-plugin"
-import { phenomicLoader } from "phenomic"
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import { phenomicLoader } from 'phenomic'
 import PhenomicLoaderFeedWebpackPlugin
-  from "phenomic/lib/loader-feed-webpack-plugin"
+  from 'phenomic/lib/loader-feed-webpack-plugin'
 import PhenomicLoaderSitemapWebpackPlugin
-  from "phenomic/lib/loader-sitemap-webpack-plugin"
+  from 'phenomic/lib/loader-sitemap-webpack-plugin'
 
-import pkg from "./package.json"
+import pkg from './package.json'
 
 export default (config = {}) => {
 
   // hot loading for postcss config
   // until this is officially supported
   // https://github.com/postcss/postcss-loader/issues/66
-  const postcssPluginFile = require.resolve("./postcss.config.js")
+  const postcssPluginFile = require.resolve('./postcss.config.js')
   const postcssPlugins = (webpackInstance) => {
     webpackInstance.addDependency(postcssPluginFile)
     delete require.cache[postcssPluginFile]
@@ -24,7 +24,7 @@ export default (config = {}) => {
 
   return {
     ...config.dev && {
-      devtool: "#cheap-module-eval-source-map",
+      devtool: '#cheap-module-eval-source-map',
     },
     module: {
       noParse: /\.min\.js/,
@@ -53,19 +53,19 @@ export default (config = {}) => {
         // (not handled by webpack by default)
         {
           test: /\.json$/,
-          loader: "json-loader",
+          loader: 'json-loader',
         },
 
         // *.js => babel + eslint
         {
           test: /\.js$/,
           include: [
-            path.resolve(__dirname, "scripts"),
-            path.resolve(__dirname, "src"),
+            path.resolve(__dirname, 'scripts'),
+            path.resolve(__dirname, 'src'),
           ],
           loaders: [
-            "babel-loader?cacheDirectory",
-            "eslint-loader" + (config.dev ? "?emitWarning" : ""),
+            'babel-loader?cacheDirectory',
+            `eslint-loader${ config.dev ? '?emitWarning' : ''}`,
           ],
         },
 
@@ -77,17 +77,17 @@ export default (config = {}) => {
         {
           test: /\.css$/,
           exclude: /\.global\.css$/,
-          include: path.resolve(__dirname, "src"),
+          include: path.resolve(__dirname, 'src'),
           // webpack 1
           loader: ExtractTextPlugin.extract(
-            "style-loader",
+            'style-loader',
             [ `css-loader?modules&localIdentName=${
               config.production
-              ? "[hash:base64:5]"
-              : "[path][name]--[local]--[hash:base64:5]"
+              ? '[hash:base64:5]'
+              : '[path][name]--[local]--[hash:base64:5]'
               }`,
-              "postcss-loader",
-            ].join("!"),
+              'postcss-loader',
+            ].join('!'),
           ),
           // webpack 2
           /*
@@ -119,11 +119,11 @@ export default (config = {}) => {
         // *.global.css => global (normal) css
         {
           test: /\.global\.css$/,
-          include: path.resolve(__dirname, "src"),
+          include: path.resolve(__dirname, 'src'),
           // webpack 1
           loader: ExtractTextPlugin.extract(
-            "style-loader",
-            [ "css-loader", "postcss-loader" ].join("!"),
+            'style-loader',
+            [ 'css-loader', 'postcss-loader' ].join('!'),
           ),
           // webpack 2
           /*
@@ -198,9 +198,9 @@ export default (config = {}) => {
         // copy assets and return generated path in js
         {
           test: /\.(html|ico|jpe?g|png|gif|eot|otf|webp|ttf|woff|woff2)$/,
-          loader: "file-loader",
+          loader: 'file-loader',
           query: {
-            name: "[path][name].[hash].[ext]",
+            name: '[path][name].[hash].[ext]',
             context: path.join(__dirname, config.source),
           },
         },
@@ -208,7 +208,7 @@ export default (config = {}) => {
         // svg as raw string to be inlined
         {
           test: /\.svg$/,
-          loader: "raw-loader",
+          loader: 'raw-loader',
         },
       ],
     },
@@ -245,10 +245,10 @@ export default (config = {}) => {
         feeds: {
           // here we define one feed, but you can generate multiple, based
           // on different filters
-          "feed.xml": {
+          'feed.xml': {
             collectionOptions: {
-              filter: { layout: "Post" },
-              sort: "date",
+              filter: { layout: 'Post' },
+              sort: 'date',
               reverse: true,
               limit: 20,
             },
@@ -261,7 +261,7 @@ export default (config = {}) => {
       }),
 
       // webpack 1
-      new ExtractTextPlugin("[name].[hash].css", { disable: config.dev }),
+      new ExtractTextPlugin('[name].[hash].css', { disable: config.dev }),
       // webpack 2
       /*
       new ExtractTextPlugin({
@@ -284,15 +284,15 @@ export default (config = {}) => {
     output: {
       path: path.join(__dirname, config.destination),
       publicPath: config.baseUrl.pathname,
-      filename: "[name].[hash].js",
+      filename: '[name].[hash].js',
     },
 
     // webpack 1
     resolve: {
-      extensions: [ ".js", ".json", "" ],
-      root: [ path.join(__dirname, "node_modules") ],
+      extensions: [ '.js', '.json', '' ],
+      root: [ path.join(__dirname, 'node_modules') ],
     },
-    resolveLoader: { root: [ path.join(__dirname, "node_modules") ] },
+    resolveLoader: { root: [ path.join(__dirname, 'node_modules') ] },
     // webpack 2
     /*
     resolve: { extensions: [ ".js", ".json" ] },

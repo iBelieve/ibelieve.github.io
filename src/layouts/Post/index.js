@@ -1,9 +1,9 @@
-import React, { PropTypes } from "react"
+import React, { PropTypes } from 'react'
 
-import LatestPosts from "../../components/LatestPosts"
-import Page from "../Page"
+import LatestPosts from '../../components/LatestPosts'
+import Page from '../Page'
 
-import styles from "./index.css"
+import styles from './index.css'
 
 const Post = (props) => {
   // it's up to you to choose what to do with this layout ;)
