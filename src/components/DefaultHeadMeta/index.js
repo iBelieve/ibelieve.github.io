@@ -9,7 +9,7 @@ const DefaultHeadMeta = (props, { metadata: { pkg } }) => (
           name: 'generator', content: `${
           process.env.PHENOMIC_NAME } ${ process.env.PHENOMIC_VERSION }`,
         },
-        { property: 'og:site_name', content: pkg.name },
+        { property: 'og:site_name', content: pkg.title },
         { name: 'twitter:site', content: `@${ pkg.twitter }` },
         ...props.meta ? props.meta : [],
       ] }

@@ -18,6 +18,8 @@ const Footer = (props, { metadata: { pkg } }) => (
          target="_blank"><Icon name="google-plus"/></a>
       <a className={cx(styles.button, styles.email)} href={`mailto:${pkg.email}`}
          target="_blank"><Icon name="email"/></a>
+      <a className={cx(styles.button, styles.rss)} href="/feed.xml"
+         target="_blank"><Icon name="rss"/></a>
     </p>
   </footer>
 )

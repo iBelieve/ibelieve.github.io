@@ -56,3 +56,7 @@
 .email {
   @mixin icon-button #fbbd08;
 }
+
+.rss {
+  @mixin icon-button #ee802f;
+}
