@@ -15,6 +15,23 @@ const DefaultHeadMeta = (props, { metadata: { pkg } }) => (
       ] }
       script={ [
         { src: 'https://cdn.polyfill.io/v2/polyfill.min.js' },
+        {
+          'type': 'text/javascript',
+          'innerHTML': `
+            var _gauges = _gauges || [];
+            (function() {
+              var t   = document.createElement('script');
+              t.type  = 'text/javascript';
+              t.async = true;
+              t.id    = 'gauges-tracker';
+              t.setAttribute('data-site-id', '5873e920c88d90142408ba3e');
+              t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+              t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(t, s);
+            })();
+          `
+        },
         ...props.scripts ? props.scripts : [],
       ] }
     />

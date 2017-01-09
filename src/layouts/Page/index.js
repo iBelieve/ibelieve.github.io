@@ -42,7 +42,7 @@ export default function Page({ isLoading, __filename, __url, head, body, header,
           {
             isLoading
             ? <Loading />
-            : <BodyContainer>{ body }</BodyContainer>
+            : <BodyContainer>{body}</BodyContainer>
           }
         </div>
         {children}

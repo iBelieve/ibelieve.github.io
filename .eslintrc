@@ -10,6 +10,8 @@ parserOptions:
   sourceType: module
   ecmaFeatures:
     jsx: true
+globals:
+  _gauges: false
 plugins:
   - react
 rules:
