@@ -1,9 +1,9 @@
 {
   "private": true,
   "author": "Michael Spencer <sonrisesoftware@gmail.com>",
-  "name": "ibelieve-website",
+  "name": "mspencer.io",
   "title": "Michael Spencer | Software Developer",
-  "homepage": "http://ibelieve.github.io",
+  "homepage": "http://mspencer.io",
   "email": "sonrisesoftware@gmail.com",
   "twitter": "iBeliever316",
   "github": "iBelieve",
@@ -16,10 +16,12 @@
     "start": "phenomic start",
     "build": "phenomic build",
     "pretest": "npm run lint",
-    "test": "npm run build"
+    "test": "npm run build",
+    "predeploy": "yarn run build",
+    "deploy": "./scripts/deploy.sh"
   },
   "phenomic": {
-    "CNAME": false,
+    "CNAME": true,
     "nojekyll": true
   },
   "#babel": "webpack-(development|production) are useful for webpack 2, otherwise use development|production",
@@ -130,6 +132,7 @@
     "react-svg-inline": "^1.1.0",
     "react-topbar-progress-indicator": "^1.0.0",
     "redux": "^3.0.0",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.13.0",
     "stylelint": "^7.2.0",
     "warning": "^3.0.0",
