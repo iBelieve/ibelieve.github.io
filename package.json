@@ -1,0 +1,35 @@
+{
+  "name": "photos-by-christopher",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Photos By Christopher",
+  "main": "index.js",
+  "repository": "cmspencer109/photos-by-christopher",
+  "author": "Christopher Spencer<cmspencer109@gmail.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "node index.js && gulp"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-preset-env": "^1.1.7",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.3.0",
+    "gulp-uglify": "^2.0.0",
+    "gutil": "^1.6.4",
+    "metalsmith": "^2.3.0",
+    "metalsmith-collections": "^0.9.0",
+    "metalsmith-layouts": "^1.7.0",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-permalinks": "^0.5.0",
+    "nunjucks": "^3.0.0",
+    "yamljs": "^0.2.8"
+  }
+}
