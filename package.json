@@ -8,11 +8,14 @@
   "author": "Christopher Spencer<cmspencer109@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "node index.js && gulp"
+    "prebuild": "rimraf dist/",
+    "build": "node index.js && gulp",
+    "start": "concurrently 'gulp watch' 'node index.js --watch'"
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-preset-env": "^1.1.7",
+    "concurrently": "^3.1.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
@@ -25,11 +28,18 @@
     "gulp-uglify": "^2.0.0",
     "gutil": "^1.6.4",
     "metalsmith": "^2.3.0",
+    "metalsmith-beautify": "^0.1.0",
     "metalsmith-collections": "^0.9.0",
+    "metalsmith-env": "^2.0.0",
     "metalsmith-layouts": "^1.7.0",
     "metalsmith-markdown": "^0.2.1",
+    "metalsmith-path": "^0.2.0",
     "metalsmith-permalinks": "^0.5.0",
+    "metalsmith-serve": "^0.0.7",
+    "metalsmith-watch": "^1.0.3",
     "nunjucks": "^3.0.0",
-    "yamljs": "^0.2.8"
+    "rimraf": "^2.5.4",
+    "yamljs": "^0.2.8",
+    "yargs": "^6.6.0"
   }
 }

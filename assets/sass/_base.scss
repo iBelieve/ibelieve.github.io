@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+}
+
+html, body {
+  font-family: $font-body;
+  color: $color-text;
+}
+
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+  max-width: 750px;
+}
+
+.page-content {
+  padding-top: $navbar-height + 1rem;
+  overflow: auto;
+}

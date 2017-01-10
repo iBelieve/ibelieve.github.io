@@ -1,0 +1,14 @@
+{% extends "layouts/default.njk" %}
+
+{% set bodyClass = "page-home" %}
+
+{% block body %}
+<div class="bio">
+  <img src="/images/logo.jpg"></img>
+  <h1>Michael Spencer</h1>
+  <h2>Software Developer</h2>
+</div>
+
+{{ contents|safe }}
+
+{% endblock %}

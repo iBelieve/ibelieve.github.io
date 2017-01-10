@@ -1,1 +1,39 @@
-Test, {{ title }}!
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}{{ title }}{% endblock %}</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Pacifico" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+
+  {% block head %}{% endblock %}
+
+</head>
+<body class="{{ bodyClass }}">
+
+  {% include "partials/header.njk" %}
+
+  <div class="page-content">
+    {% block body %}
+      {{ contents|safe }}
+    {% endblock %}
+  </div>
+
+  {% include "partials/footer.njk" %}
+
+  <script src="/js/scripts.js"></script>
+
+  {% if NODE_ENV != "production" %}
+    <script src="http://localhost:35729/livereload.js"></script>
+  {% endif %}
+
+  {% block scripts %}{% endblock %}
+
+</body>
+</html>

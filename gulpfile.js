@@ -5,7 +5,7 @@ const plugins = require('gulp-load-plugins')({
   replaceString: /\bgulp[\-.]/
 })
 
-const IS_DEV = process.NODE_ENV !== 'production'
+const IS_DEV = process.env.NODE_ENV !== 'production'
 const SASS_STYLE = IS_DEV ? 'expanded' : 'compressed'
 const SOURCE_MAPS = !IS_DEV
 
@@ -18,11 +18,15 @@ const paths = {
   scripts: {
     src: 'assets/js/**/*.js',
     dest: './dist/js/'
+  },
+  images: {
+    src: 'assets/images/**/*',
+    dest: './dist/images/'
   }
 }
 
 function changeEvent(evt) {
-  gutil.log('File', gutil.colors.cyan(evt.path.replace(new RegExp('/.*(?=/' + basePaths.src + ')/'), '')), 'was', gutil.colors.magenta(evt.type));
+  gutil.log('File', gutil.colors.cyan(evt.path.replace(new RegExp('/.*(?=/' + __dirname + ')/'), '')), 'was', gutil.colors.magenta(evt.type));
 }
 
 gulp.task('sass', function() {
@@ -51,15 +55,24 @@ gulp.task('scripts', function() {
     .pipe(IS_DEV ? plugins.sourcemaps.write() : gutil.noop())
     .pipe(plugins.size())
     .pipe(gulp.dest(paths.scripts.dest))
-});
+})
 
-gulp.task('watch', ['sass', 'scripts'], function(){
+gulp.task('images', function() {
+  gulp.src(paths.images.src)
+    .pipe(plugins.size())
+    .pipe(gulp.dest(paths.images.dest))
+})
+
+gulp.task('watch', ['sass', 'scripts', 'images'], function(){
   gulp.watch(paths.styles.files, ['sass']).on('change', function(evt) {
     changeEvent(evt)
   })
   gulp.watch(paths.scripts.src, ['scripts']).on('change', function(evt) {
     changeEvent(evt)
   })
+  gulp.watch(paths.images.src, ['images']).on('change', function(evt) {
+    changeEvent(evt)
+  })
 })
 
-gulp.task('default', ['sass', 'scripts'])
+gulp.task('default', ['sass', 'scripts', 'images'])

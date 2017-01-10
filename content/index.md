@@ -1,6 +1,4 @@
 ---
-title: Hello, world!
-layout: default.njk
+title: Michael Spencer - Software Developer
+layout: home.njk
 ---
-
-Content.
