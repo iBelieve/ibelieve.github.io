@@ -1,5 +1,6 @@
 const gulp    = require('gulp')
 const gutil   = require('gulp-util')
+const es      = require('event-stream')
 const plugins = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'gulp.*'],
   replaceString: /\bgulp[\-.]/
@@ -14,6 +15,10 @@ const paths = {
     src: 'assets/sass',
     files: 'assets/sass/**/*.scss',
     dest: './dist/css/'
+  },
+  css: {
+    src: 'assets/css',
+    files: 'assets/css/**/*.css',
   },
   scripts: {
     src: 'assets/js/**/*.js',
@@ -30,15 +35,18 @@ function changeEvent(evt) {
 }
 
 gulp.task('sass', function() {
-  gulp.src(paths.styles.files)
+  const sass = gulp.src(paths.styles.files)
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass({
       outputStyle: SASS_STYLE,
       includePaths: [paths.styles.src]
     }))
     .on('error', function(err) {
-      new gutil.PluginError('CSS', err, { showStack: true })
+      throw new gutil.PluginError('CSS', err, { showStack: true })
     })
+
+  es.concat(gulp.src(paths.css.files), sass)
+    .pipe(plugins.concat('styles.css'))
     .pipe(plugins.autoprefixer('last 2 versions'))
     .pipe(IS_DEV ? gutil.noop() : plugins.cssmin())
     .pipe(IS_DEV ? plugins.sourcemaps.write() : gutil.noop())
@@ -65,6 +73,9 @@ gulp.task('images', function() {
 
 gulp.task('watch', ['sass', 'scripts', 'images'], function(){
   gulp.watch(paths.styles.files, ['sass']).on('change', function(evt) {
+    changeEvent(evt)
+  })
+  gulp.watch(paths.css.files, ['sass']).on('change', function(evt) {
     changeEvent(evt)
   })
   gulp.watch(paths.scripts.src, ['scripts']).on('change', function(evt) {

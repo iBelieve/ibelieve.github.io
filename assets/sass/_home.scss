@@ -1,6 +1,29 @@
+$bio-padding: 2rem;
+
+.page-home {
+  .navbar {
+    color: $color-text-dark;
+  }
+
+  .navbar__link {
+    &:hover,
+    &:focus {
+      border-bottom-color: $color-subtext-dark;
+    }
+
+    &--active {
+      border-bottom-color: $color-subtext-dark;
+    }
+  }
+}
+
 .bio {
-  margin-top: 32px;
+  background: #292C33;
+  margin-top: -$top-padding;
+  padding-top: $navbar-height + $bio-padding;
+  padding-bottom: $bio-padding;
   text-align: center;
+  color: $color-text-dark;
 
   img {
     border-radius: 100%;
@@ -15,7 +38,7 @@
   }
 
   h2 {
-    color: $color-subtext;
+    color: $color-subtext-dark;
     font-weight: 300;
     font-size: 21px;
     margin-top: 0;

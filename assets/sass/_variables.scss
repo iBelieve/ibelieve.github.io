@@ -1,8 +1,15 @@
 $navbar-height: 4rem;
+$top-padding: $navbar-height + 1rem;
 
-$font-bio-title: 'Pacifico', cursive;
-$font-site-title: 'Hack', monospace;
 $font-body: 'Lato', sans-serif;
+$font-code: 'Hack', monospace;
+$font-header: 'Roboto', sans-serif;
+$font-bio-title: 'Pacifico', cursive;
+$font-site-title: $font-code;
+
+$color-primary: #468FEC;
 
 $color-text: #555;
+$color-text-dark: #eee;
 $color-subtext: rgba(0,0,0,0.54);
+$color-subtext-dark: rgba(255,255,255,0.54);

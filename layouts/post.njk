@@ -3,5 +3,17 @@
 {% set bodyClass = "page-post" %}
 
 {% block body %}
-{{ contents }}
+<div class="container">
+  <article class="post">
+    <header>
+      <h1>{{ title }}</h1>
+      <div class="post__info">
+        <time>{{ date|date }}</time> • <span>{{ readTime }}</span>
+      </div>
+    </header>
+    <section>
+      {{ contents|safe }}
+    </section>
+  </article>
+</div>
 {% endblock %}

@@ -9,6 +9,20 @@
   <h2>Software Developer</h2>
 </div>
 
-{{ contents|safe }}
+<div class="container">
+  {{ contents|safe }}
+
+  Latest posts:
+
+  <ul>
+    {% for post in collections.posts %}
+      <li>
+        <a href="{{ post.path }}">
+          {{ post.title }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}

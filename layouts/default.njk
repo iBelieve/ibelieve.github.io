@@ -8,7 +8,8 @@
 
   <title>{% block title %}{{ title }}{% endblock %}</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Pacifico" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400|Roboto:400,700|Pacifico" rel="stylesheet">
+  <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/styles.css">
 
@@ -21,7 +22,9 @@
 
   <div class="page-content">
     {% block body %}
-      {{ contents|safe }}
+      <div class="container">
+        {{ contents|safe }}
+      </div>
     {% endblock %}
   </div>
 

@@ -1,0 +1,69 @@
+@mixin contact-button($color)  {
+  &:hover, &:active {
+    color: $color;
+    border-color: $color;
+    background: rgba($color, 0.1);
+  }
+
+  &:active {
+    background: rgba($color, 0.25);
+  }
+}
+
+.footer {
+  border-top: 1px solid #EEE;
+  background: #FAFAFA;
+  text-align: center;
+
+  &__copyright {
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+
+  &__contact-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    border: 1px solid #888;
+    color: #888;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+
+    transition: all 0.4s;
+
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &--github {
+      @include contact-button(#323234);
+    }
+
+    &--twitter {
+      @include contact-button(#00aced);
+    }
+
+    &--google-plus {
+      @include contact-button(#dc4e41);
+    }
+
+    &--email {
+      @include contact-button(#fbbd08);
+    }
+
+    &--rss {
+      @include contact-button(#ee802f);
+    }
+  }
+
+  &__report {
+    color: $color-primary;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+}
