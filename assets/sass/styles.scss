@@ -1,8 +1,13 @@
 @import "variables";
 
-@import "base";
-@import "header";
-@import "footer";
+@import "components/article";
+@import "components/base";
+@import "components/button";
+@import "components/code";
+@import "components/containers";
+@import "components/header";
+@import "components/footer";
+@import "components/posts-list";
 
 @import "home";
 @import "post";

@@ -7,6 +7,8 @@ const watch        = require('metalsmith-watch')
 const serve        = require('metalsmith-serve')
 const env          = require('metalsmith-env')
 const prism        = require('metalsmith-prism')
+const excerpts     = require('metalsmith-better-excerpts')
+const feed         = require('metalsmith-feed')
 const path         = require('./lib/metalsmith-path')
 const readTime     = require('./lib/metalsmith-read-time')
 
@@ -16,6 +18,24 @@ const friendlyDate = require('./lib/format-date')
 
 require('prismjs/components/prism-clike')
 require('prismjs/components/prism-c')
+
+const METADATA = {
+  site: {
+    title: 'Michael Spencer - Software Developer',
+    url: 'http://mspencer.io/',
+    author: 'Michael Spencer'
+  },
+  // description: 'It\'s about saying »Hello« to the world.',
+  generatorname: 'Metalsmith',
+  generatorurl: 'http://metalsmith.io/',
+  links: {
+    github: 'iBelieve',
+    email: 'contact@mspencer.io',
+    googlePlus: 'MichaelSpencer',
+    twitter: 'iBeliever316',
+    repository: 'iBelieve/ibelieve.github.io'
+  }
+}
 
 const args = require('yargs').argv
 
@@ -36,20 +56,7 @@ njk.addFilter('date', function (value, format) {
 
 
 const metalsmith = Metalsmith(__dirname)
-  .metadata({
-    sitename: 'My Static Site & Blog',
-    siteurl: 'http://example.com/',
-    description: 'It\'s about saying »Hello« to the world.',
-    generatorname: 'Metalsmith',
-    generatorurl: 'http://metalsmith.io/',
-    links: {
-      github: 'iBelieve',
-      email: 'contact@mspencer.io',
-      googlePlus: 'MichaelSpencer',
-      twitter: 'iBeliever316',
-      repository: 'iBelieve/ibelieve.github.io'
-    }
-  })
+  .metadata(METADATA)
   .source('./content')
   .destination('./dist')
   .clean(false)
@@ -63,6 +70,7 @@ const metalsmith = Metalsmith(__dirname)
     gfm: true,
     tables: true
   }))
+  .use(excerpts({ pruneLength: 300 }))
   .use(readTime())
   .use(prism())
   .use(permalinks({
@@ -84,6 +92,7 @@ const metalsmith = Metalsmith(__dirname)
     default: 'default.njk',
     cache: false
   }))
+  .use(feed({ collection: 'posts', destination: 'feed.xml' }))
 
 if (args.watch) {
   metalsmith
@@ -107,4 +116,5 @@ if (args.watch) {
 metalsmith
   .build(function(err) {
     if (err) throw err
+    metalsmith.metadata(METADATA)
   })

@@ -1,0 +1,22 @@
+:not(pre) > code {
+  border-radius: 2px;
+  font-family: $font-code;
+  background-color: #EEE;
+  padding: 2px 5px;
+}
+
+pre:not([class*="language-"]) {
+  background: #f3f3f3;
+  border-radius: 3px;
+  font-family: $font-code;
+  font-size: 15px;
+  padding: 1em;
+  margin: .5em 0;
+}
+
+pre[class*="language-"],
+code[class*="language-"] {
+  border-radius: 3px;
+  font-family: $font-code;
+  font-size: 15px;
+}

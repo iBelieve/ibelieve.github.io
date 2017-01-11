@@ -1,0 +1,20 @@
+{% if posts.length == 0 %}
+  <span>No posts yet.</span>
+{% else %}
+  <ul class="posts-list">
+    {% for post in posts %}
+      <li class="post-item">
+        <a class="post-item__title" href="{{ post.path }}">{{ post.title }}</a>
+        <div class="post-item__meta">
+          <time>{{ post.date|date }}</time> • <span>{{ post.readTime }}</span>
+        </div>
+        <div class="post-item__description">
+          {{ post.excerpt }}
+        </div>
+        <a class="post-item__read-more" href="{{ post.path }}">
+          Read More →
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

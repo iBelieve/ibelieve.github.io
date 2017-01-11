@@ -12,17 +12,11 @@
 <div class="container">
   {{ contents|safe }}
 
-  Latest posts:
+  <h2 class="latest-posts">Latest Posts</h2>
 
-  <ul>
-    {% for post in collections.posts %}
-      <li>
-        <a href="{{ post.path }}">
-          {{ post.title }}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+  {% set posts = collections.posts %}
+  {% include "partials/posts-list.njk" %}
+
 </div>
 
 {% endblock %}
