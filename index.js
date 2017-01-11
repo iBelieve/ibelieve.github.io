@@ -21,12 +21,12 @@ require('prismjs/components/prism-c')
 const METADATA = {
   site: {
     title: 'Michael Spencer - Software Developer',
-    url: 'http://mspencer.io/',
+    url: 'http://mspencer.io',
     author: 'Michael Spencer'
   },
   // description: 'It\'s about saying »Hello« to the world.',
   generatorname: 'Metalsmith',
-  generatorurl: 'http://metalsmith.io/',
+  generatorurl: 'http://metalsmith.io',
   links: {
     github: 'iBelieve',
     email: 'contact@mspencer.io',
