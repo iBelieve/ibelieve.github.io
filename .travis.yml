@@ -8,7 +8,7 @@ deploy:
   skip_cleanup: true
 
   provider: script
-  script: NODE_ENV=production yarn deploy
+  script: yarn deploy
 
   on:
     branch: source
@@ -19,3 +19,4 @@ env:
     - secure: >-
         CmwQ0/2yoWus7D5MsVK0v9eAS7gAxfLLiLOE5FFa5BRFEt/C5zoiEDslvq1itZpAM04uOS9IgIQpo3iktmRAqR+Wiy73ZwhIDmtgUJ6H3kLBz3z5MPPgCY4G5dkL1gs8QUNbvJf+qUywoZZI4lSum+SidqlISESNuWILM7jWvIJSs0FqBf1JB93TdWCilUzNOV7B6TUH2RandQ6JU83EZc2nc0kRMJZeD1H/c21wDcxS/PvYZbgXYutjwpoQQIwxy6RjtPefiAasQp90mcpJSzE5DqHmyH3L7JA58VCFGhEP2Hchv8eJjLRquXT3ipYJ7AVEVeRfCn1tJXSLz8zpp/pLVXD7/8WjJtha8wprGrHPYKThcB2tgZl4qIY4i3VacZmQp6Obt3tyRliyEOLEGHc1Nh/1DUT0lpmlw2sojo/wrl0yoWlgIX61wmelJ5XLvEe1Va7WDNyS5cODjNqiiRKRIstlbi0AEK3Z8qRfHqNddBY2f2r/6SN2KYQjkS8npTjU4TDEFDjNCRK+bXIBYviKlMwa/rVRFGfb6oLyQCI55f54cLP32N7JqyghRp22tHdqbWvzvlII532+opEknU426UGAl3falpGm9yz2HaFfOfffDY4bzr9E6aeRPbrBZm/23Lb0soc4EkztUny0bHEoSsoNHRIPFtO9QxLlZn8=
     - GIT_DEPLOY_REPO=https://$GITHUB_TOKEN@github.com/iBelieve/ibelieve.github.io.git
+    - NODE_ENV=production
