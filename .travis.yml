@@ -8,7 +8,7 @@ deploy:
   skip_cleanup: true
 
   provider: script
-  script: yarn deploy
+  script: NODE_ENV=production yarn deploy
 
   on:
     branch: source

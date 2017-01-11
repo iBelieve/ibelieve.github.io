@@ -8,7 +8,7 @@
     <header>
       <h2>{{ title }}</h2>
       <div class="post__info">
-        <time>{{ date|date }}</time> • <span>{{ readTime }}</span>
+        <time datetime="{{ date|iso_date }}">{{ date|date }}</time> • <span>{{ readTime }}</span>
       </div>
     </header>
     <section>

@@ -1,6 +1,4 @@
-const moment = require('moment')
-
-module.exports = function format(value) {
+function relativeDate(value) {
   const date = moment(value)
   const now = moment()
 

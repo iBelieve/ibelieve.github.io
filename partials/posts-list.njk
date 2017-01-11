@@ -6,7 +6,7 @@
       <li class="post-item">
         <a class="post-item__title" href="{{ post.path }}">{{ post.title }}</a>
         <div class="post-item__meta">
-          <time>{{ post.date|date }}</time> • <span>{{ post.readTime }}</span>
+          <time datetime="{{ post.date|iso_date }}">{{ post.date|date }}</time> • <span>{{ post.readTime }}</span>
         </div>
         <div class="post-item__description">
           {{ post.excerpt }}

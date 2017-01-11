@@ -14,7 +14,6 @@ const readTime     = require('./lib/metalsmith-read-time')
 
 const nunjucks     = require('nunjucks')
 const moment       = require('moment')
-const friendlyDate = require('./lib/format-date')
 
 require('prismjs/components/prism-clike')
 require('prismjs/components/prism-c')
@@ -44,15 +43,12 @@ const njk = nunjucks.configure('.', {
   noCache : true
 })
 
-njk.addFilter('date', function (value, format) {
-  const date = moment(value)
-
-  if (format) {
-    return date.format(format)
-  } else {
-    return friendlyDate(date)
-  }
-});
+njk.addFilter('date', function(value, format = 'MMM Do, YYYY') {
+  return moment(value).format(format)
+})
+njk.addFilter('iso_date', function(value) {
+  return moment(value).toISOString()
+})
 
 
 const metalsmith = Metalsmith(__dirname)
