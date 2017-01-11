@@ -21,14 +21,18 @@ $bio-padding: 2rem;
     margin-bottom: 0;
   }
 
-  .page-content .container {
-    margin-top: 32px;
+  .page-content {
+    padding-bottom: 0;
+
+    .container {
+      padding-top: 1rem;
+    }
   }
 }
 
 .bio {
   background: #292C33;
-  margin-top: -$top-padding;
+  margin-top: -$navbar-height;
   padding-top: $navbar-height + $bio-padding;
   padding-bottom: $bio-padding;
   text-align: center;
