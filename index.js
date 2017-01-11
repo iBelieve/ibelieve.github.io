@@ -44,7 +44,10 @@ const metalsmith = Metalsmith(__dirname)
     generatorurl: 'http://metalsmith.io/',
     links: {
       github: 'iBelieve',
-      email: 'contact@mspencer.io'
+      email: 'contact@mspencer.io',
+      googlePlus: 'MichaelSpencer',
+      twitter: 'iBeliever316',
+      repository: 'iBelieve/ibelieve.github.io'
     }
   })
   .source('./content')
