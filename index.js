@@ -62,7 +62,13 @@ const metalsmith = Metalsmith(__dirname)
   .clean(false)
   .use(env())
   .use(collections({
-    posts: 'posts/*.md'
+    posts: 'posts/*.md',
+    latestPosts: {
+      pattern: 'posts/*.md',
+      sortBy: 'date',
+      reverse: true,
+      limit: 5
+    }
   }))
   .use(markdown({
     langPrefix: 'language-',
