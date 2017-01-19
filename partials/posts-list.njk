@@ -1,7 +1,7 @@
 {% if posts.length == 0 %}
   <span>No posts yet.</span>
 {% else %}
-  <section class="posts-list {% if latestPosts %}posts-list--latest{% endif %}">
+  <section class="posts-list">
     {% for post in posts %}
       <a class="post-item" href={{ post.path }}>
         <article>

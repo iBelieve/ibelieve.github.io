@@ -1,15 +1,43 @@
 .page-topic {
   background: $color-background;
 
-  h6 {
-    margin-bottom: 0;
-    color: $color-subtext;
-    font-family: $font-body;
-    font-weight: 300;
-    text-transform: uppercase;
+  &__content {
+    @extend .container;
+    display: flex;
   }
 
-  h2 {
-    margin-top: 0.25rem;
+  &__latest {
+    flex-basis: 66%;
+
+    h6 {
+      margin-bottom: 0;
+      color: $color-subtext;
+      font-family: $font-body;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+  }
+
+  &__topics {
+    h2 {
+      margin-top: 2.25rem;
+    }
+
+    flex-basis: 33%;
+    padding-left: 32px;
+
+    .tag {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
   }
 }

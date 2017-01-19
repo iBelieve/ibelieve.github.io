@@ -4,12 +4,27 @@
 
 {% block body %}
 
-<div class="container">
-  <h6>Tagged In</h6>
-  <h2>{{ tag }}</h2>
+<div class="page-topic__content">
 
-  {% set posts = pagination.files %}
-  {% include "partials/posts-list.njk" %}
+  <section class="page-topic__latest">
+    <h6>Tagged In</h6>
+    <h2>{{ tag }}</h2>
+
+    {% set posts = pagination.files %}
+    {% include "partials/posts-list.njk" %}
+  </section>
+
+  <aside class="page-topic__topics">
+    <h2>All Topics</h2>
+
+    <div class="page-topic__tags">
+      {% for key, tag in tags %}
+        <a class="tag" href="/blog/topics/{{ tag.urlSafe }}">
+          {{ key }}
+        </a>
+      {% endfor %}
+    </div>
+  </aside>
 
 </div>
 

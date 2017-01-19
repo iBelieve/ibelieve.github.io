@@ -9,14 +9,27 @@
   <h2>Software Developer</h2>
 </div>
 
-<div class="container">
+<div class="page-home__content">
   {{ contents|safe }}
 
-  <h2 class="latest-posts">Latest Posts</h2>
+  <section class="page-home__latest">
+    <h2>Latest Posts</h2>
 
-  {% set posts = collections.latestPosts %}
-  {% set latestPosts = true %}
-  {% include "partials/posts-list.njk" %}
+    {% set posts = collections.latestPosts %}
+    {% include "partials/posts-list.njk" %}
+  </section>
+
+  <aside class="page-home__topics">
+    <h2>Topics</h2>
+
+    <div class="page-home__tags">
+      {% for key, tag in tags %}
+        <a class="tag" href="/blog/topics/{{ tag.urlSafe }}">
+          {{ key }}
+        </a>
+      {% endfor %}
+    </div>
+  </aside>
 
 </div>
 
