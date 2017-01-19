@@ -24,6 +24,7 @@ const metalsmith = {
   prism:       require('metalsmith-prism'),
   feed:        require('metalsmith-feed'),
   tags:        require('metalsmith-tags'),
+  publish:      require('metalsmith-publish'),
   path:        require('./lib/metalsmith-path'),
   readTime:    require('./lib/metalsmith-read-time')
 }
@@ -110,6 +111,9 @@ gulp.task('content', function() {
     .pipe(plugins.metalsmith({
       root: __dirname,
       use: [
+        metalsmith.publish({
+          draft: IS_DEV
+        }),
         metalsmith.env(),
         metalsmith.tags({
           path:'blog/topics/:tag.html',

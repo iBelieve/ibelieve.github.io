@@ -2997,6 +2997,12 @@ metalsmith-prism@^3.0.2:
     metalsmith "2.2.0"
     prismjs "1.5.1"
 
+metalsmith-publish@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/metalsmith-publish/-/metalsmith-publish-0.1.5.tgz#cba9219b9396736b90866645930a89aeec923540"
+  dependencies:
+    debug "~0.7.4"
+
 metalsmith-tags@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/metalsmith-tags/-/metalsmith-tags-2.0.0.tgz#81a09877a703664c4155944dd946b7b8bfab0cfd"
