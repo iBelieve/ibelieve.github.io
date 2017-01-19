@@ -24,12 +24,25 @@
         <time datetime="{{ date|iso_date }}">{{ date|date }}</time> • <span>{{ readTime }}</span>
       </div>
     </header>
+
     {% if hero %}
-    <img src="{{ hero }}"/>
+      <img class="post__hero" src="{{ hero }}"/>
     {% endif %}
+
     <section>
       {{ contents|safe }}
     </section>
+
+    {% if tags %}
+      <footer class="post__tags">
+        {% for tag in tags %}
+          <a class="tag" href="/blog/topics/{{ tag.slug }}">
+            <i class="mdi mdi-tag"></i>
+            {{ tag.name }}
+          </a>
+        {% endfor %}
+      </footer>
+    {% endif %}
   </article>
 </div>
 {% endblock %}

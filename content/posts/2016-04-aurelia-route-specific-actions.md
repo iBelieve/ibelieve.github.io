@@ -2,6 +2,7 @@
 title: Aurelia Route-Specific Actions in a Navbar
 date: 2016-04-28
 layout: post.njk
+tags: Aurelia
 ---
 
 Recently, I've been working on an Aurelia-based webapp for work. I have a basic layout with a bootstrap navbar and different pages linked in the navbar using an Aurelia router. One of the things I wanted to do was have route-specific actions exposed as buttons in the navbar.

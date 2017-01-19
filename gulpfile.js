@@ -23,6 +23,7 @@ const metalsmith = {
   excerpts:    require('metalsmith-better-excerpts'),
   prism:       require('metalsmith-prism'),
   feed:        require('metalsmith-feed'),
+  tags:        require('metalsmith-tags'),
   path:        require('./lib/metalsmith-path'),
   readTime:    require('./lib/metalsmith-read-time')
 }
@@ -37,6 +38,9 @@ njk.addFilter('date', function(value, format = 'MMM Do, YYYY') {
 })
 njk.addFilter('iso_date', function(value) {
   return moment(value).toISOString()
+})
+njk.addFilter('split', function(value) {
+  return value.split(/,\s*/g)
 })
 
 /***** GLOBAL CONSTANTS *****/
@@ -107,6 +111,13 @@ gulp.task('content', function() {
       root: __dirname,
       use: [
         metalsmith.env(),
+        metalsmith.tags({
+          path:'blog/topics/:tag.html',
+          layout:'topic.njk',
+          sortBy: 'date',
+          reverse: true,
+          slug: { mode: 'rfc3986' }
+        }),
         metalsmith.collections({
           posts: 'posts/*.md',
           latestPosts: {

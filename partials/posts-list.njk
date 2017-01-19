@@ -1,26 +1,36 @@
 {% if posts.length == 0 %}
   <span>No posts yet.</span>
 {% else %}
-  <ul class="posts-list {% if latestPosts %}posts-list--latest{% endif %}">
+  <section class="posts-list {% if latestPosts %}posts-list--latest{% endif %}">
     {% for post in posts %}
-      <li class="post-item">
-        <a class="post-item__title" href="{{ post.path }}">{{ post.title }}</a>
-        <div class="post-item__meta">
-          <time datetime="{{ post.date|iso_date }}">{{ post.date|date }}</time> • <span>{{ post.readTime }}</span>
-        </div>
-        <div class="post-item__content">
+      <a class="post-item" href={{ post.path }}>
+        <article>
+          <header>
+            {% if post.hero %}
+              <img class="post-item__hero" src="{{ post.hero }}"/>
+            {% endif %}
+            <div class="post-item__meta">
+              <time datetime="{{ post.date|iso_date }}">{{ post.date|date }}</time> • <span>{{ post.readTime }}</span>
+            </div>
+            <h3 class="post-item__title" href="{{ post.path }}">{{ post.title }}</h3>
+          </header>
+
           <div class="post-item__description">
             {{ post.excerpt }}
           </div>
 
-          {% if post.hero %}
-          <img class="post-item__hero" src="{{ post.hero }}"/>
+          {% if post.tags %}
+            <footer class="post-item__tags">
+              {% for tag in post.tags %}
+                <span class="tag" href="/blog/topic/{{ tag.slug }}">
+                  <i class="mdi mdi-tag"></i>
+                  {{ tag.name }}
+                </span>
+              {% endfor %}
+            </footer>
           {% endif %}
-        </div>
-        <a class="post-item__read-more" href="{{ post.path }}">
-          Read More →
-        </a>
-      </li>
+        </article>
+      </a>
     {% endfor %}
-  </ul>
+  </section>
 {% endif %}

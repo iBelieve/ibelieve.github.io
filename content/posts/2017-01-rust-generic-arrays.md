@@ -2,6 +2,7 @@
 title: Rust Structs with Generic/Variable-Length Arrays
 date: 2017-01-05
 layout: post.njk
+tags: Rust, OSDev
 ---
 
 I’ve been interested in operating systems development for a while, and last year worked on a small hobby kernel in C++, using the excellent resources from http://wiki.osdev.org. Recently, I decided to start on a [new hobby kernel](https://github.com/iBeliever/osdev) using the [Rust programming language](https://github.com/iBeliever/osdev).

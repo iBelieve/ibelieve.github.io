@@ -1,0 +1,16 @@
+{% extends "layouts/default.njk" %}
+
+{% set bodyClass = "page-topic" %}
+
+{% block body %}
+
+<div class="container">
+  <h6>Tagged In</h6>
+  <h2>{{ tag }}</h2>
+
+  {% set posts = pagination.files %}
+  {% include "partials/posts-list.njk" %}
+
+</div>
+
+{% endblock %}

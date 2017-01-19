@@ -2,85 +2,72 @@
   display: flex;
   flex-direction: column;
 
-  list-style: none;
-  padding: 0;
-
   &--latest {
   }
 }
 
 .post-item {
-  display: flex;
-  flex-direction: column;
-  max-width: 40rem;
+  max-width: 30rem;
   margin: 1rem auto;
+  display: block;
+  text-decoration: none;
+  color: $color-text;
+  cursor: pointer;
 
-  &__title {
-    align-self: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    font-family: $font-header;
+  &:hover {
     text-decoration: none;
-    border-bottom: none;
-    margin-bottom: 0.5rem;
+    color: $color-text;
+
+    .post-item__title {
+      text-decoration: underline;
+    }
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+
+    box-shadow: 0 1px 1px rgba(50, 59, 67, 0.1);
+    border-radius: 3px;
+    background: white;
+
+    &:hover {
+      box-shadow: 0 2px 4px rgba(50, 59, 67, 0.1);
+    }
+  }
+
+  &__hero {
+    margin: -1rem -1.5rem 1rem -1.5rem;
+    max-width: calc(100% + 3rem);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   &__meta {
     font-size: 0.8rem;
     opacity: 0.6;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.5rem;
   }
 
-  &__content {
+  &__title {
+    display: block;
+    border-bottom: none;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  &__tags {
+    color: $color-subtext;
     display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
   }
 
-  &__description {
-    flex-grow: 1;
-  }
-
-  &__hero {
-    border-radius: 3px;
-  }
-
-  &__read-more {
-    @extend .button;
-    @extend .button---primary;
-    align-self: flex-start;
-    display: inline-flex;
-    margin-top: 1rem;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    text-align: center;
-    text-decoration: none !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .post-item {
-    &__content {
-      flex-direction: column;
-    }
-
-    &__hero {
-      margin-top: 16px;
-      max-width: 100%;
-    }
-  }
-
-  .posts-list--latest {
-    .post-item__hero {
-      display: none;
-    }
-  }
-}
-
-@media (min-width: 601px) {
-  .post-item {
-    &__hero {
-      align-self: flex-start;
-      margin-left: 16px;
-      max-width: 150px;
-    }
+  .tag {
+    padding: 3px 5px;
+    font-size: 0.9rem;
   }
 }
