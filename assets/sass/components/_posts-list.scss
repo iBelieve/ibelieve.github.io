@@ -6,7 +6,6 @@
   padding: 0;
 
   &--latest {
-    text-align: center;
   }
 }
 
@@ -32,8 +31,16 @@
     margin-bottom: 0.2rem;
   }
 
+  &__content {
+    display: flex;
+  }
+
   &__description {
-    // font-size: 0.9rem;
+    flex-grow: 1;
+  }
+
+  &__hero {
+    border-radius: 3px;
   }
 
   &__read-more {
@@ -46,5 +53,34 @@
     font-size: 0.8rem;
     text-align: center;
     text-decoration: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-item {
+    &__content {
+      flex-direction: column;
+    }
+
+    &__hero {
+      margin-top: 16px;
+      max-width: 100%;
+    }
+  }
+
+  .posts-list--latest {
+    .post-item__hero {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 601px) {
+  .post-item {
+    &__hero {
+      align-self: flex-start;
+      margin-left: 16px;
+      max-width: 150px;
+    }
   }
 }

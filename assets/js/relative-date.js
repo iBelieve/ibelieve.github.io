@@ -11,6 +11,7 @@ function relativeDate(value) {
   } else if (days >= 7) {
     return date.format('MMM Do')
   } else {
-    return date.fromNow()
+    const text = date.fromNow()
+    return text[0].toUpperCase() + text.slice(1)
   }
 }
