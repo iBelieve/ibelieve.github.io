@@ -1,20 +1,25 @@
-$bio-padding: 2rem;
+$bio-padding: 3rem;
 
 .page-home {
   background: $color-background;
 
-  .navbar {
+  .navbar:not(.navbar--floating) {
     color: $color-text-dark;
-  }
 
-  .navbar__link {
-    &:hover,
-    &:focus {
-      border-bottom-color: $color-subtext-dark;
-    }
 
-    &--active {
-      border-bottom-color: $color-subtext-dark;
+    .navbar__link {
+      &:hover,
+      &:focus {
+        border-bottom-color: $color-subtext-dark;
+      }
+
+      &--active {
+        border-bottom-color: $color-subtext-dark;
+      }
+
+      &--title {
+        display: none;
+      }
     }
   }
 
@@ -55,7 +60,7 @@ $bio-padding: 2rem;
 .bio {
   background: #292C33;
   margin-top: -$navbar-height;
-  padding-top: $navbar-height + $bio-padding;
+  padding-top: $bio-padding;
   padding-bottom: $bio-padding;
   text-align: center;
   color: $color-text-dark;

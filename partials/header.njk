@@ -6,11 +6,17 @@
 <header class="navbar">
   <nav>
     <div class="navbar__left">
-      {{ link('/about/', 'About') }}
+      {# {{ link('/projects/', 'Projects') }} #}
     </div>
     {{ link('/', '<iBelieve/>', 'navbar__link--title') }}
     <div class="navbar__right">
-      {{ link('/blog/', 'Blog') }}
+      {# {{ link('/blog/', 'Blog') }} #}
+      <a class="navbar__link" href="https://github.com/{{ links.github }}" target="_blank">
+        <i class="mdi mdi-github-circle"></i> GitHub
+      </a>
+      <a class="navbar__link" href="https://twitter.com/{{ links.twitter }}" target="_blank">
+        <i class="mdi mdi-twitter"></i> Twitter
+      </a>
     </div>
   </nav>
 </header>

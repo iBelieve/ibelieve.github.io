@@ -1,11 +1,11 @@
 ---
 title: Rust Structs with Generic/Variable-Length Arrays
 date: 2017-01-05
-layout: post.njk
 tags: Rust, OSDev
+layout: post.njk
 ---
 
-I’ve been interested in operating systems development for a while, and last year worked on a small hobby kernel in C++, using the excellent resources from http://wiki.osdev.org. Recently, I decided to start on a [new hobby kernel](https://github.com/iBeliever/osdev) using the [Rust programming language](https://github.com/iBeliever/osdev).
+I’ve been interested in operating systems development for a while, and last year worked on a small hobby kernel in C++, using the excellent resources from http://wiki.osdev.org. Recently, I decided to start on a [new hobby kernel](https://github.com/iBeliever/osdev) using the [Rust programming language](https://www.rust-lang.org).
 
 Following the great blog series [Writing an OS in Rust](http://os.phil-opp.com/) by Philipp Oppermann and [Bare Metal Rust](http://www.randomhacks.net/bare-metal-rust/) by Eric Kidd, along with referencing my old code, I quickly got a basic "Hello, world" kernel with a VGA module up and working. Then, came memory management...
 

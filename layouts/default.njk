@@ -29,6 +29,8 @@
   <div class="page-content">
     {% block body %}
       <div class="container">
+        <h1>{{ title }}</h1>
+        
         {{ contents|safe }}
       </div>
     {% endblock %}

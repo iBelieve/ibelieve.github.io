@@ -31,6 +31,13 @@ h1 {
   font-size: 1.7rem;
 }
 
+h6 {
+  color: $color-subtext;
+  font-family: $font-body;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
 a {
   text-decoration: none;
   color: $color-text;
