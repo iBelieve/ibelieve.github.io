@@ -1,7 +1,8 @@
-$(document).ready(function() {
-  updateNavbar()
+function setUpNavbar() {
+  $('.navbar').addClass('navbar--fixed')
   $(document).scroll(updateNavbar)
-})
+  updateNavbar()
+}
 
 function updateNavbar() {
   const bio = $('.bio')
