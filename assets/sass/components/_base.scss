@@ -55,3 +55,13 @@ blockquote {
   padding-left: 16px;
   font-style: italic;
 }
+
+.color-tile {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.2);
+  display: inline-block;
+  margin-right: 8px;
+  margin-top: 8px;
+}
