@@ -29,7 +29,7 @@
       <img class="post__hero" src="{{ hero }}"/>
     {% endif %}
 
-    <section>
+    <section class="post__content">
       {{ contents|safe }}
     </section>
 
@@ -42,6 +42,12 @@
           </a>
         {% endfor %}
       </footer>
+    {% endif %}
+
+    {% if comments != false %}
+      <section class="post__comments">
+        {% include "partials/disqus.njk" %}
+      </section>
     {% endif %}
   </article>
 </div>

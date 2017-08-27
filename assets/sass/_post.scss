@@ -9,8 +9,12 @@
     }
   }
 
-  footer {
-    margin-top: 2rem;
+  &__content {
+    margin-bottom: 2rem;
+  }
+
+  &__comments {
+    margin-bottom: 1rem;
   }
 
   &__info {
@@ -24,5 +28,6 @@
 
   &__tags {
     color: $color-subtext;
+    margin-bottom: 1rem;
   }
 }
