@@ -1,12 +1,13 @@
 {% macro link(route, title, className='') %}
   <a class="navbar__link {{ className }} {% if path == route %}navbar__link--active {% endif %}"
-     href="{{ route }}">{{ title}}</a>
+     href="{{ route }}">{{ title }}</a>
 {% endmacro %}
 
 <header class="navbar">
   <nav>
     <div class="navbar__left">
-      {# {{ link('/projects/', 'Projects') }} #}
+      {{ link('/about/', 'About') }}
+      {{ link('/projects/', 'Projects') }}
     </div>
     {{ link('/', '<iBelieve/>', 'navbar__link--title') }}
     <div class="navbar__right">

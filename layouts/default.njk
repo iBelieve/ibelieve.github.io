@@ -29,9 +29,19 @@
   <div class="page-content">
     {% block body %}
       <div class="container">
-        <h1>{{ title }}</h1>
+        <article class="post">
+          <header>
+            <h1>{{ title }}</h1>
+          </header>
 
-        {{ contents|safe }}
+          {% if hero %}
+            <img class="post__hero" src="{{ hero }}"/>
+          {% endif %}
+
+          <section class="post__content">
+            {{ contents|safe }}
+          </section>
+        </article>
       </div>
     {% endblock %}
   </div>
