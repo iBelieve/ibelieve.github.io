@@ -41,7 +41,7 @@ $bio-padding: 3rem;
     }
   }
 
-  &__topics {
+  &__aside {
     flex-basis: 33%;
     padding-left: 32px;
 
@@ -54,10 +54,14 @@ $bio-padding: 3rem;
     display: flex;
     flex-wrap: wrap;
   }
+
+  &__languages {
+    @extend .languages-list;
+  }
 }
 
 .bio {
-  background: #292C33;
+  background: #292c33;
   margin-top: -$navbar-height;
   padding-top: $bio-padding;
   padding-bottom: $bio-padding;

@@ -1,15 +1,17 @@
-@import "variables";
+@import 'variables';
+@import 'github-colors';
+@import 'github';
 
-@import "components/article";
-@import "components/base";
-@import "components/button";
-@import "components/code";
-@import "components/containers";
-@import "components/header";
-@import "components/footer";
-@import "components/posts-list";
-@import "components/tag";
+@import 'components/article';
+@import 'components/base';
+@import 'components/button';
+@import 'components/code';
+@import 'components/containers';
+@import 'components/header';
+@import 'components/footer';
+@import 'components/posts-list';
+@import 'components/tag';
 
-@import "home";
-@import "post";
-@import "topic";
+@import 'home';
+@import 'post';
+@import 'topic';

@@ -2,6 +2,7 @@ $(document).ready(function() {
   updateDates()
   setUpNavbar()
   setUpLinks()
+  showGitHubStats()
 })
 
 function updateDates() {

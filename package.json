@@ -57,5 +57,8 @@
     "rimraf": "^2.5.4",
     "wordcount": "^1.1.1",
     "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.7.0"
   }
 }

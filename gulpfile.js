@@ -52,7 +52,7 @@ const SOURCE_MAPS = !IS_DEV
 
 const METADATA = {
   site: {
-    title: 'Michael Spencer - Software Developer',
+    title: 'Michael Spencer',
     url: 'http://mspencer.io',
     author: 'Michael Spencer'
   },

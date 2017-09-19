@@ -1,0 +1,42 @@
+@function language-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return rgba(black, 0.87); // Lighter backgorund, return dark color
+  } @else {
+    @return rgba(white, 0.87); // Darker background, return light color
+  }
+}
+
+@each $language, $color in $language-colors {
+  .languages-list .language--#{$language} {
+    &::before {
+      background-color: $color;
+      color: language-text-color($color);
+      border: 1px solid darken($color, 15%);
+    }
+  }
+}
+
+.languages-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+
+    &::before {
+      content: '';
+      // content: attr(data-count);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 70%;
+      // color: white;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+  }
+}
