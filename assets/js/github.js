@@ -3,7 +3,7 @@ function showGitHubStats() {
 
   if ($aside.length != 1) return
 
-  fetchGitHubStats().then(topLanguages => {
+  fetchTopLanguages().then(topLanguages => {
     $aside.append(`
       <h2>Top 5 Languages on GitHub</h2>
       <ul class="page-home__languages">
@@ -19,6 +19,27 @@ function showGitHubStats() {
       </u>
     `)
   })
+
+  fetchPinnedRepositories().then(pinnedRepos => {
+    $aside.append(`
+      <h2>Highlighted Projects</h2>
+      <ul class="page-home__repos">
+        ${pinnedRepos
+          .map(
+            repo => `
+            <li class="${languageClass(repo.language)}" data-stars="${repo.stars}">
+              <a href="${repositoryUrl(repo)}" target="_blank">${repo.name}</a>
+            </li>
+          `
+          )
+          .join('')}
+      </u>
+    `)
+  })
+}
+
+function repositoryUrl(repo) {
+  return `https://github.com/iBelieve/${repo.name}`
 }
 
 function languageUrl(language) {
@@ -39,7 +60,7 @@ function languageClass(language) {
   )
 }
 
-function fetchGitHubStats() {
+function fetchTopLanguages() {
   return fetch('https://api.github.com/users/iBelieve/repos')
     .then(response => response.json())
     .then(repos =>
@@ -50,4 +71,8 @@ function fetchGitHubStats() {
         .slice(0, 5)
         .value()
     )
+}
+
+function fetchPinnedRepositories() {
+  return fetch('https://gh-pins.now.sh/?username=iBelieve').then(response => response.json())
 }
