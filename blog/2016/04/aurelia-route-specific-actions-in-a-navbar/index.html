@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:url" content="http://mspencer.io/blog/2016/04/aurelia-route-specific-actions-in-a-navbar/" />
+  <meta property="og:title" content="Aurelia Route-Specific Actions in a Navbar" />
+  <meta name="twitter:domain" value="http://mspencer.io" />
+  <meta name="twitter:site" value="@iBeliever316" />
+
+  <title>Aurelia Route-Specific Actions in a Navbar</title>
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400|Roboto:400,700|Pacifico" rel="stylesheet">
+  <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+
+  
+<meta name="description" content="Recently, I’ve been working on an Aurelia-based webapp for work. I have a basic layout with a bootstrap navbar and different pages linked in the navbar using an Aurelia router. One of the things I wanted to do was have route-specific actions exposed as buttons in the navbar." />
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="Recently, I’ve been working on an Aurelia-based webapp for work. I have a basic layout with a bootstrap navbar and different pages linked in the navbar using an Aurelia router. One of the things I wanted to do was have route-specific actions exposed as buttons in the navbar." />
+<meta property="article:published_time" content="2016-04-28T00:00:00.000Z" />
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" value="@iBeliever316" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="3 min read" />
+
+
+</head>
+<body class="page-post">
+
+  
+
+<header class="navbar">
+  <nav>
+    <div class="navbar__left">
+      
+  <a class="navbar__link  "
+     href="/about/">About</a>
+
+      
+  <a class="navbar__link  "
+     href="/projects/">Projects</a>
+
+    </div>
+    
+  <a class="navbar__link navbar__link--title "
+     href="/">&lt;iBelieve/&gt;</a>
+
+    <div class="navbar__right">
+      
+      <a class="navbar__link" href="https://github.com/iBelieve" target="_blank">
+        <i class="mdi mdi-github-circle"></i> GitHub
+      </a>
+      <a class="navbar__link" href="https://twitter.com/iBeliever316" target="_blank">
+        <i class="mdi mdi-twitter"></i> Twitter
+      </a>
+    </div>
+  </nav>
+</header>
+
+
+  <div class="page-content">
+    
+<div class="container">
+  <article class="post">
+    <header>
+      <h1>Aurelia Route-Specific Actions in a Navbar</h1>
+      <div class="post__info">
+        <time datetime="2016-04-28T00:00:00.000Z">Apr 27th, 2016</time> • <span>3 min read</span>
+      </div>
+    </header>
+
+    
+
+    <section class="post__content">
+      <p>Recently, I&#x2019;ve been working on an Aurelia-based webapp for work. I have a basic layout with a bootstrap navbar and different pages linked in the navbar using an Aurelia router. One of the things I wanted to do was have route-specific actions exposed as buttons in the navbar.</p>
+<p>In AngularJS, this was quite easy to do:</p>
+<pre class="language-js"><code class="language-js">$state<span class="token punctuation">.</span>current<span class="token punctuation">.</span>actions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
+</code></pre>
+<p>In Aurelia, it&#x2019;s not so simple. There&#x2019;s no direct way that I&#x2019;ve found to access the current route from your route&#x2019;s view model or access the current route&#x2019;s view model from the main <code>App</code> view model. However, we can get the current route&#x2019;s view model by doing a bit of digging into the internals of <code>RouterView</code>.</p>
+<p>It&#x2019;s possible to assign a reference to an HTML element using the <a href="http://stackoverflow.com/a/29866395/1917313"><code>ref</code> attribute</a>. However, this is a reference to the HTML element, and is mostly useful for stuff like jQuery (you can do things like <code>$(this.elementRef)</code> using refs). Instead, what&#x2019;s more useful is the <a href="http://stackoverflow.com/a/30733738/1917313"><code>view-model.ref</code> attribute</a>, which lets us reference a custom element&#x2019;s view model from our current view model.</p>
+<p>So, we can get a reference to the <code>RouterView</code> view model in our <code>app.html</code> file like this:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span> <span class="token attr-name">view-model.ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>routerViewModel<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Now, in our <code>App</code> view model in <code>app.js</code>, we can get the view model of the current route like this:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">get</span> <span class="token function">currentRouteViewModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> view <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>routerViewModel<span class="token punctuation">.</span>view<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// The view property can be null at first</span>
+    <span class="token keyword">return</span> view <span class="token operator">?</span> view<span class="token punctuation">.</span>controller<span class="token punctuation">.</span>viewModel <span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now, from there, we can get a property from the route&#x2019;s view model for displaying actions in the navbar:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">get</span> <span class="token function">routeActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>currentRouteViewModel <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>currentRouteViewModel<span class="token punctuation">.</span>actions <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>We&#x2019;d declare actions in the route&#x2019;s view model like this:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyPage</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>actions <span class="token operator">=</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">{</span>
+                text<span class="token punctuation">:</span> <span class="token string">&apos;Do Something&apos;</span><span class="token punctuation">,</span>
+                role<span class="token punctuation">:</span> <span class="token string">&apos;primary&apos;</span><span class="token punctuation">,</span>
+                triggered<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Do something amazing!</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Now, we can use <code>routeActions</code> in our <code>app.html</code>, either for directly displaying actions or for binding them to a navbar component to display there. In my case, I&#x2019;m displaying the actions as buttons in my Bootstrap navbar like this:</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">repeat.for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>action of actions<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>btn btn-${action.role || <span class="token punctuation">&apos;</span>default<span class="token punctuation">&apos;</span>} navbar-btn<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">click.delegate</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>action.triggered()<span class="token punctuation">&quot;</span></span>
+        <span class="token attr-name">disabled.bind</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>action.disabled<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  ${action.text}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>So, while it isn&#x2019;t extremely obvious how to get actions or any other properties from a route-specific view model, it&#x2019;s certainly possible to do using the <code>view-model.ref</code> attribute and a bit of digging in the <code>RouteView</code> code.</p>
+
+    </section>
+
+    
+      <footer class="post__tags">
+        
+          <a class="tag" href="/blog/topics/aurelia">
+            <i class="mdi mdi-tag"></i>
+            Aurelia
+          </a>
+        
+      </footer>
+    
+
+    
+      <section class="post__comments">
+        <div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+  this.page.url = "http://mspencer.io/blog/2016/04/aurelia-route-specific-actions-in-a-navbar/";
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://ibeliever.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </section>
+    
+  </article>
+</div>
+
+  </div>
+
+  <footer class="footer">
+  <div class="container">
+    <p class="footer__copyright">&copy; Copyright 2017 Michael Spencer.</p>
+
+    <p>
+      <a class="footer__contact-button footer__contact-button--github"
+         href="https://github.com/iBelieve" target="_blank"><i class="mdi mdi-github-circle"></i></a>
+      <a class="footer__contact-button footer__contact-button--twitter"
+         href="https://twitter.com/iBeliever316" target="_blank"><i class="mdi mdi-twitter"></i></a>
+      <a class="footer__contact-button footer__contact-button--google-plus"
+         href="https://plus.google.com/+MichaelSpencer" target="_blank"><i class="mdi mdi-google-plus"></i></a>
+      <a class="footer__contact-button footer__contact-button--email"
+         href="mailto:contact@mspencer.io" target="_blank"><i class="mdi mdi-email"></i></a>
+      <a class="footer__contact-button footer__contact-button--rss"
+         href="/feed.xml" target="_blank"><i class="mdi mdi-rss"></i></a>
+    </p>
+
+    <p>
+      <a class="footer__report" href="https://github.com/iBelieve/ibelieve.github.io/issues" target="_blank">
+        <i class="mdi mdi-bug"></i> Report an Issue
+      </a>
+    </p>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+  <script src="/js/scripts.js"></script>
+
+  
+
+  
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-47662876-5', 'auto');
+
+
+    ga('require', 'cleanUrlTracker', { stripQuery: true, indexFilename: 'index.html', trailingSlash: 'append' });
+    // ga('require', 'eventTracker');
+    ga('require', 'outboundLinkTracker');
+    ga('require', 'pageVisibilityTracker');
+
+    ga('send', 'pageview');
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>

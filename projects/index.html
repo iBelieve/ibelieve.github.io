@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:url" content="http://mspencer.io/projects/" />
+  <meta property="og:title" content="Projects" />
+  <meta name="twitter:domain" value="http://mspencer.io" />
+  <meta name="twitter:site" value="@iBeliever316" />
+
+  <title>Projects</title>
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400|Roboto:400,700|Pacifico" rel="stylesheet">
+  <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+
+  
+  
+
+</head>
+<body class="">
+
+  
+
+<header class="navbar">
+  <nav>
+    <div class="navbar__left">
+      
+  <a class="navbar__link  "
+     href="/about/">About</a>
+
+      
+  <a class="navbar__link  navbar__link--active "
+     href="/projects/">Projects</a>
+
+    </div>
+    
+  <a class="navbar__link navbar__link--title "
+     href="/">&lt;iBelieve/&gt;</a>
+
+    <div class="navbar__right">
+      
+      <a class="navbar__link" href="https://github.com/iBelieve" target="_blank">
+        <i class="mdi mdi-github-circle"></i> GitHub
+      </a>
+      <a class="navbar__link" href="https://twitter.com/iBeliever316" target="_blank">
+        <i class="mdi mdi-twitter"></i> Twitter
+      </a>
+    </div>
+  </nav>
+</header>
+
+
+  <div class="page-content">
+    
+      <div class="container">
+        <article class="post">
+          <header>
+            <h1>Projects</h1>
+          </header>
+
+          
+
+          <section class="post__content">
+            <h3 id="-aeropi-https-github-com-ibelieve-aeropi-rs-"><a href="https://github.com/iBelieve/aeropi-rs">AeroPi</a></h3>
+<p>This is my flight controller for a DIY quadcopter I&#x2019;m building, written in Rust and designed to be fully automated, with little or no interaction from a human pilot.</p>
+<h3 id="-krunch-https-github-com-ibelieve-krunch-"><a href="https://github.com/iBelieve/krunch">Krunch</a></h3>
+<p>Krunch is a Kotlin parser/combinator library that I wrote for an Android budgeting app that will use <a href="http://hledger.org/">hledger</a> plain-text accounting files as the source for budgeting/financial info. It uses Kotlin&#x2019;s inline function calls to make for easily understable parsers like this:</p>
+<pre class="language-kotlin"><code class="language-kotlin"><span class="token keyword">val</span> transaction <span class="token operator">=</span> datePair <span class="token operator">and</span> status <span class="token operator">and</span> <span class="token function">optional</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span> <span class="token operator">and</span> description <span class="token operator">and</span>
+        followingComment <span class="token operator">and</span> postings flatMap <span class="token operator">::</span>TransactionAST
+</code></pre>
+<h3 id="-gnome-inbox-https-github-com-ibelieve-gnome-inbox-"><a href="https://github.com/iBelieve/gnome-inbox">GNOME Inbox</a></h3>
+<p>Built using Rust and Gtk, this app for integrates Google Inbox with the GNOME Inbox, much like <a href="http://www.boxyapp.co/">Boxy</a> does for macOS.</p>
+<h3 id="-oxide-https-github-com-ibelieve-oxide-"><a href="https://github.com/iBelieve/oxide">Oxide</a></h3>
+<p>Oxide is my toy operating system kernel, written primarily in Rust with a bit of assembly mixed in where needed. My first kernel was written in C++. My goal is to eventually implement a text-based user interface for the OS.</p>
+<h3 id="-papyros-https-github-com-papyros-"><a href="https://github.com/papyros">Papyros</a></h3>
+<p>One of the largest projects I&#x2019;ve worked on, Papyros was an operating system based on Arch Linux with a custom desktop environment and set core applications built around Wayland, Qt/QML, and Google&#x2019;s Material Design guidelines. The project has sense merged into <a href="http://liri.io/">Liri</a>, which I&#x2019;m no longer actively contributing to.</p>
+<h3 id="-qml-material-https-github-com-papyros-qml-material-"><a href="https://github.com/papyros/qml-material">QML Material</a></h3>
+<p>QML Material was a UI framework built on QtQuick and implementing Google&#x2019;s Material Design guidelines. It&#x2019;s since been superseded by QtQuick Controls 2.0.</p>
+<h3 id="-quickly-https-github-com-quickly-quickly-"><a href="https://github.com/quickly/quickly">Quickly</a></h3>
+<p>Quickly was my attempt to improve JavaScript usage in QML by integrating Babel to support ES6+ features as well as offering a more Node.js-like environment, even to the point of supporting npm modules. I ran into issues getting that to work, and am not actively working on the idea.</p>
+
+          </section>
+        </article>
+      </div>
+    
+  </div>
+
+  <footer class="footer">
+  <div class="container">
+    <p class="footer__copyright">&copy; Copyright 2017 Michael Spencer.</p>
+
+    <p>
+      <a class="footer__contact-button footer__contact-button--github"
+         href="https://github.com/iBelieve" target="_blank"><i class="mdi mdi-github-circle"></i></a>
+      <a class="footer__contact-button footer__contact-button--twitter"
+         href="https://twitter.com/iBeliever316" target="_blank"><i class="mdi mdi-twitter"></i></a>
+      <a class="footer__contact-button footer__contact-button--google-plus"
+         href="https://plus.google.com/+MichaelSpencer" target="_blank"><i class="mdi mdi-google-plus"></i></a>
+      <a class="footer__contact-button footer__contact-button--email"
+         href="mailto:contact@mspencer.io" target="_blank"><i class="mdi mdi-email"></i></a>
+      <a class="footer__contact-button footer__contact-button--rss"
+         href="/feed.xml" target="_blank"><i class="mdi mdi-rss"></i></a>
+    </p>
+
+    <p>
+      <a class="footer__report" href="https://github.com/iBelieve/ibelieve.github.io/issues" target="_blank">
+        <i class="mdi mdi-bug"></i> Report an Issue
+      </a>
+    </p>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+  <script src="/js/scripts.js"></script>
+
+  
+
+  
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-47662876-5', 'auto');
+
+
+    ga('require', 'cleanUrlTracker', { stripQuery: true, indexFilename: 'index.html', trailingSlash: 'append' });
+    // ga('require', 'eventTracker');
+    ga('require', 'outboundLinkTracker');
+    ga('require', 'pageVisibilityTracker');
+
+    ga('send', 'pageview');
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>

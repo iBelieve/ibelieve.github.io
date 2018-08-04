@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:url" content="http://mspencer.io/blog/2017/01/rust-structs-with-generic-variable-length-arrays/" />
+  <meta property="og:title" content="Rust Structs with Generic/Variable-Length Arrays" />
+  <meta name="twitter:domain" value="http://mspencer.io" />
+  <meta name="twitter:site" value="@iBeliever316" />
+
+  <title>Rust Structs with Generic/Variable-Length Arrays</title>
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400|Roboto:400,700|Pacifico" rel="stylesheet">
+  <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+
+  
+<meta name="description" content="I’ve been interested in operating systems development for a while, and last year worked on a small hobby kernel in C++, using the excellent resources from http://wiki.osdev.org. Recently, I decided to start on a new hobby kernel using the Rust programming language." />
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="I’ve been interested in operating systems development for a while, and last year worked on a small hobby kernel in C++, using the excellent resources from http://wiki.osdev.org. Recently, I decided to start on a new hobby kernel using the Rust programming language." />
+<meta property="article:published_time" content="2017-01-05T00:00:00.000Z" />
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" value="@iBeliever316" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="4 min read" />
+
+
+</head>
+<body class="page-post">
+
+  
+
+<header class="navbar">
+  <nav>
+    <div class="navbar__left">
+      
+  <a class="navbar__link  "
+     href="/about/">About</a>
+
+      
+  <a class="navbar__link  "
+     href="/projects/">Projects</a>
+
+    </div>
+    
+  <a class="navbar__link navbar__link--title "
+     href="/">&lt;iBelieve/&gt;</a>
+
+    <div class="navbar__right">
+      
+      <a class="navbar__link" href="https://github.com/iBelieve" target="_blank">
+        <i class="mdi mdi-github-circle"></i> GitHub
+      </a>
+      <a class="navbar__link" href="https://twitter.com/iBeliever316" target="_blank">
+        <i class="mdi mdi-twitter"></i> Twitter
+      </a>
+    </div>
+  </nav>
+</header>
+
+
+  <div class="page-content">
+    
+<div class="container">
+  <article class="post">
+    <header>
+      <h1>Rust Structs with Generic/Variable-Length Arrays</h1>
+      <div class="post__info">
+        <time datetime="2017-01-05T00:00:00.000Z">Jan 4th, 2017</time> • <span>4 min read</span>
+      </div>
+    </header>
+
+    
+
+    <section class="post__content">
+      <p>I&#x2019;ve been interested in operating systems development for a while, and last year worked on a small hobby kernel in C++, using the excellent resources from <a href="http://wiki.osdev.org">http://wiki.osdev.org</a>. Recently, I decided to start on a <a href="https://github.com/iBeliever/osdev">new hobby kernel</a> using the <a href="https://www.rust-lang.org">Rust programming language</a>.</p>
+<p>Following the great blog series <a href="http://os.phil-opp.com/">Writing an OS in Rust</a> by Philipp Oppermann and <a href="http://www.randomhacks.net/bare-metal-rust/">Bare Metal Rust</a> by Eric Kidd, along with referencing my old code, I quickly got a basic &#x201C;Hello, world&#x201D; kernel with a VGA module up and working. Then, came memory management&#x2026;</p>
+<p>In my old C++ kernel, I was using a bitmap page frame allocator to track page frames in physical memory. I had made a nice bitmap class using C++ templates that accepted a template parameter for the number of bits in the bitmap:</p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">template</span> <span class="token operator">&lt;</span>size_t N<span class="token operator">&gt;</span>
+<span class="token keyword">class</span> <span class="token class-name">Bitmap</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token keyword">private</span><span class="token operator">:</span>
+    uint32_t m_data<span class="token punctuation">[</span>N <span class="token operator">/</span> BITS_PER_ITEM<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Replicating this in Rust seemed easy enough:</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">struct</span> Bitmap<span class="token operator">&lt;</span>N<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    data<span class="token punctuation">:</span> <span class="token punctuation">[</span>u64<span class="token punctuation">;</span> N<span class="token operator">/</span>BITS_PER_ITEM<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Except&#x2026; it doesn&#x2019;t work:</p>
+<pre><code>error[E0425]: unresolved name `N`
+ --&gt; kernel/src/bitmap:4:17
+  |
+4 |     data: [u64; N/BITS_PER_ITEM]
+  |                 ^ unresolved name
+error[E0080]: constant evaluation error
+ --&gt; kernel/src/bitmap:4:17
+  |
+4 |     data: [u64; N/BITS_PER_ITEM]
+  |                 ^ unresolved path in constant expression
+error: aborting due to previous error
+</code></pre><p>As it turns out, non-type parameters (specifically, constants for controlling the length of an array) are not supported:</p>
+<p><a href="http://stackoverflow.com/a/28137604">http://stackoverflow.com/a/28137604</a></p>
+<p>I came across <a href="https://github.com/fizyk20/generic-array">generic-array</a>, based around <a href="https://github.com/paholg/typenum">typenum</a>, which used some fancy tricks to provide compile-time constants that can be used as generic parameters. There&#x2019;s even a <a href="https://crates.io/crates/bit-array">bit-array</a> crate based around <code>generic-array</code>. The only problem with this is that with large numbers, <code>bit-array</code> gets really slow, and I needed to use a bit array with 1,048,576 bits in it to track all available pages in x86&#x2019;s 4 GB address space. I&#x2019;m not sure if that&#x2019;s because of <code>bit-array</code> or <code>generic-array</code>, but I&#x2019;m guessing it might be because <code>bit-array</code> is doing some extra stuff to calculate the number of items in the data array based on the number of bits. Anyhow, with Atom&#x2019;s linter-rust package running cargo every time I save a file and grabbing the global lock on my project, I need a solution that&#x2019;s fast (plus fast compile times are always nice). The other problem was that <code>bit-array</code> and <code>generic-array</code> don&#x2019;t have const <code>new()</code> methods, so I can&#x2019;t use my bitmap allocator in a static mutex.</p>
+<p>So&#x2026;that didn&#x2019;t work. What about a struct for my bitmap that just accepted an array type as the generic parameter, requiring that I&#x2019;d have to pass in an array type instead of just the length? I just need to be able to get a reference to the array (or rather a full slice of the array), so something like this seems like it should work:</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">struct</span> Bitmap<span class="token operator">&lt;</span>T<span class="token punctuation">:</span> AsRef<span class="token operator">&lt;</span>u64<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
+    data<span class="token punctuation">:</span> T
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Except&#x2026; it doesn&#x2019;t. Why? Because all the array traits are only implemented on arrays up to a length of 32. According to the docs:</p>
+<blockquote>
+<p>This limitation on the size <code>N</code> exists because Rust does not yet support code that is generic over the size of an array type. <code>[Foo; 3]</code> and <code>[Bar; 3]</code> are instances of same generic type <code>[T; 3]</code>, but <code>[Foo; 3]</code> and <code>[Foo; 5]</code> are entirely different types. As a stopgap, trait implementations are statically generated up to size 32.</p>
+</blockquote>
+<p>Great. However, there is another trait that does work: <a href="https://doc.rust-lang.org/nightly/core/array/trait.FixedSizeArray.html"><code>core::array::FixedSizeArray</code></a>. It requires an unstable feature to be enabled, and thus needs nightly Rust, but that&#x2019;s fine as I&#x2019;m using the nightly version of Rust with a bunch of other features enabled. So here&#x2019;s what the struct looks like:</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">struct</span> Bitmap<span class="token operator">&lt;</span>T<span class="token punctuation">:</span> FixedSizeArray<span class="token operator">&lt;</span>u64<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
+    data<span class="token punctuation">:</span> T
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This trait has <code>as_slice()</code> and <code>as_mut_slice()</code> methods, which are exactly what I need. I have to pass an array type in as the generic type instead of just the length, and it needs to be the actual array length, not the number of bits. But, it works for now until proper number constants are supported as generic parameters. You can find the full implementation to my <code>Bitmap</code> struct <a href="https://github.com/iBeliever/osdev/blob/master/kernel/src/bitmap.rs">here</a>. So now I have a working <a href="https://github.com/iBeliever/osdev/blob/master/kernel/src/arch/x86_64/mem/pmm.rs">bitmap page frame allocator</a> for my OS kernel!</p>
+<p>If you&#x2019;re interested in tracking progress on number constants as generic parameters, here&#x2019;s a GitHub issue and a recent proposal (though the proposal does seem to be rejected and a solution might not be within the Rust team&#x2019;s 2017 scope):</p>
+<p><a href="https://github.com/rust-lang/rfcs/issues/1038">https://github.com/rust-lang/rfcs/issues/1038</a>
+<a href="https://github.com/rust-lang/rfcs/pull/1657#issuecomment-268915104">https://github.com/rust-lang/rfcs/pull/1657#issuecomment-268915104</a></p>
+
+    </section>
+
+    
+      <footer class="post__tags">
+        
+          <a class="tag" href="/blog/topics/rust">
+            <i class="mdi mdi-tag"></i>
+            Rust
+          </a>
+        
+          <a class="tag" href="/blog/topics/osdev">
+            <i class="mdi mdi-tag"></i>
+            OSDev
+          </a>
+        
+      </footer>
+    
+
+    
+      <section class="post__comments">
+        <div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+  this.page.url = "http://mspencer.io/blog/2017/01/rust-structs-with-generic-variable-length-arrays/";
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://ibeliever.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </section>
+    
+  </article>
+</div>
+
+  </div>
+
+  <footer class="footer">
+  <div class="container">
+    <p class="footer__copyright">&copy; Copyright 2017 Michael Spencer.</p>
+
+    <p>
+      <a class="footer__contact-button footer__contact-button--github"
+         href="https://github.com/iBelieve" target="_blank"><i class="mdi mdi-github-circle"></i></a>
+      <a class="footer__contact-button footer__contact-button--twitter"
+         href="https://twitter.com/iBeliever316" target="_blank"><i class="mdi mdi-twitter"></i></a>
+      <a class="footer__contact-button footer__contact-button--google-plus"
+         href="https://plus.google.com/+MichaelSpencer" target="_blank"><i class="mdi mdi-google-plus"></i></a>
+      <a class="footer__contact-button footer__contact-button--email"
+         href="mailto:contact@mspencer.io" target="_blank"><i class="mdi mdi-email"></i></a>
+      <a class="footer__contact-button footer__contact-button--rss"
+         href="/feed.xml" target="_blank"><i class="mdi mdi-rss"></i></a>
+    </p>
+
+    <p>
+      <a class="footer__report" href="https://github.com/iBelieve/ibelieve.github.io/issues" target="_blank">
+        <i class="mdi mdi-bug"></i> Report an Issue
+      </a>
+    </p>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+  <script src="/js/scripts.js"></script>
+
+  
+
+  
+
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-47662876-5', 'auto');
+
+
+    ga('require', 'cleanUrlTracker', { stripQuery: true, indexFilename: 'index.html', trailingSlash: 'append' });
+    // ga('require', 'eventTracker');
+    ga('require', 'outboundLinkTracker');
+    ga('require', 'pageVisibilityTracker');
+
+    ga('send', 'pageview');
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+</html>
