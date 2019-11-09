@@ -39,7 +39,7 @@
     "gulp-uglify": "^3.0.0",
     "gutil": "^1.6.4",
     "html-to-text": "^3.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "metalsmith": "^2.3.0",
     "metalsmith-better-excerpts": "^0.1.7",
     "metalsmith-collections": "^0.9.0",
